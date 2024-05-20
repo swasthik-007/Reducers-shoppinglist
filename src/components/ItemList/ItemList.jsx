@@ -4,12 +4,17 @@ import './ItemList.css';
 import Item from '../Item/Item';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import React from 'react';
+import React, { useContext } from 'react';
+
+// Context imports
+import { ShoppingItemsContext } from '../../providers/ShoppingContext';
 
 // utils
 import { showError } from '../../utils/showToasts';
 
-function ItemList({ shoppingItems, addQuantity, decQuantity }) {
+function ItemList({ addQuantity, decQuantity }) {
+
+    const shoppingItems = useContext(ShoppingItemsContext);
 
     return (
         <div className="shopping-items-wrapper">
@@ -25,13 +30,12 @@ function ItemList({ shoppingItems, addQuantity, decQuantity }) {
                             <Item 
                                 itemName={item.name}
                                 quantity={item.quantity}
-
+                                
                             />
                             <div className='change-quanity remove-item'
                                 onClick={() => {
                                     if(item.quantity == 1) showError(`${item.name} removed from the list`)
                                     decQuantity(item.id)
-
                                 }}
                             >
                                 <FontAwesomeIcon icon={faMinus} />
@@ -43,5 +47,4 @@ function ItemList({ shoppingItems, addQuantity, decQuantity }) {
         </div>
     )
 }
-
 export default React.memo(ItemList);
