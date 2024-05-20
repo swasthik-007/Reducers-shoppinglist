@@ -1,9 +1,7 @@
 // CSS Imports
 import './ShoppingList.css';
-
 // Context imports
 import { ShoppingItemsContext, ShoppingDispatchContext } from '../../providers/ShoppingContext';
-
 // Component imports
 import Header from "../Header/Header";
 import InputItem from "../InputItem/InputItem";
@@ -16,18 +14,6 @@ function ShoppingList() {
 
     // const [shoppingItems, setShoppingItems] = useState([]);
     const [shoppingItems, dispatch] = useReducer(ItemReducer, []);
-    function handleAddQuantity(id) {
-        dispatch({
-            type: 'increment_item',
-            itemId: id
-        })
-    }
-    function handleDecQuantity(id) {
-        dispatch({
-            type: 'decrement_item',
-            itemId: id
-        })
-    }
 
     return (
         <>
@@ -36,11 +22,8 @@ function ShoppingList() {
                     <Header />
                     <ToastContainer />
                     <div className="current-shopping-list">
-                        <InputItem/>
-                        <ItemList 
-                            addQuantity={handleAddQuantity}
-                            decQuantity={handleDecQuantity}
-                        />
+                        <InputItem />
+                        <ItemList />
                     </div>
                 </ShoppingDispatchContext.Provider>
             </ShoppingItemsContext.Provider>
